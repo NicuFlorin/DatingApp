@@ -22,14 +22,14 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/bootswatch/dist/united/bootstrap.css"
             ],
             "scripts": []
           },
@@ -69,9 +69,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "sslCert":"./ssl/server.crt",
-            "sslKey":"./ssl/server.key",
-            "ssl":true
+            "sslCert": "./ssl/server.crt",
+            "sslKey": "./ssl/server.key",
+            "ssl": true
           },
           "configurations": {
             "production": {
@@ -87,24 +87,18 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "client:build"
-           
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-           
+
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
