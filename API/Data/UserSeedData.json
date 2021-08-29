@@ -109,7 +109,7 @@
     "Country": "Mauritania",
     "Photos": [
       {
-        "Url": "https://randomuser.me/api/portraits/man/94.jpg",
+        "Url": "https://randomuser.me/api/portraits/men/94.jpg",
         "IsMain": true
       }
     ]
@@ -128,7 +128,7 @@
     "Country": "Pakistan",
     "Photos": [
       {
-        "Url": "https://randomuser.me/api/portraits/man/60.jpg",
+        "Url": "https://randomuser.me/api/portraits/men/60.jpg",
         "IsMain": true
       }
     ]
@@ -147,7 +147,7 @@
     "Country": "Tonga",
     "Photos": [
       {
-        "Url": "https://randomuser.me/api/portraits/man/23.jpg",
+        "Url": "https://randomuser.me/api/portraits/men/23.jpg",
         "IsMain": true
       }
     ]
@@ -166,7 +166,7 @@
     "Country": "East Timor",
     "Photos": [
       {
-        "Url": "https://randomuser.me/api/portraits/man/42.jpg",
+        "Url": "https://randomuser.me/api/portraits/men/42.jpg",
         "IsMain": true
       }
     ]
@@ -185,7 +185,7 @@
     "Country": "San Marino",
     "Photos": [
       {
-        "Url": "https://randomuser.me/api/portraits/man/64.jpg",
+        "Url": "https://randomuser.me/api/portraits/men/64.jpg",
         "IsMain": true
       }
     ]
