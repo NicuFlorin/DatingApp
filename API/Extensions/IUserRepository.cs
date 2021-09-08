@@ -14,13 +14,13 @@ namespace API.Extensions
 
         Task<IEnumerable<AppUser>> GetUsersAsync();
 
-        Task<AppUser> GetUserByIdAsync(int id);
+        Task<AppUser> GetUserByIdAsync(int Id);
 
-        Task<AppUser> GetUserByUsernameAsync(string username);
+        Task<AppUser> GetUserByUsernameAsync(string UserName);
 
         Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams);
 
-        Task<MemberDto> GetMemberAsync(string username);
+        Task<MemberDto> GetMemberAsync(string UserName);
 
     }
 }

@@ -5,9 +5,9 @@ namespace API.DTO
 {
     public class MemberDto
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string username { get; set; }
+        public string UserName { get; set; }
 
         public string PhotoUrl { get; set; }
         public string Gender { get; set; }

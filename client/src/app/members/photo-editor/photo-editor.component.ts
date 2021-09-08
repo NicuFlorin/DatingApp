@@ -37,21 +37,21 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   setMainPhoto(photo: Photo) {
-    this.membersService.setMainPhoto(photo.id).subscribe(() => {
+    this.membersService.setMainPhoto(photo.Id).subscribe(() => {
       this.user.photoUrl = photo.url;
       this.accountService.setCurrentUser(this.user);
       this.member.photoUrl = photo.url;
 
       this.member.photos.forEach((p) => {
         if (p.isMain) p.isMain = false;
-        if (p.id == photo.id) p.isMain = true;
+        if (p.Id == photo.Id) p.isMain = true;
       });
     });
   }
 
   deletePhoto(photoId: number) {
     this.membersService.deletePhoto(photoId).subscribe(() => {
-      this.member.photos = this.member.photos.filter((x) => x.id !== photoId);
+      this.member.photos = this.member.photos.filter((x) => x.Id !== photoId);
     });
   }
 

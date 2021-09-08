@@ -22,20 +22,20 @@ namespace API.Controllers
             this.likesRepository = likesRepository;
         }
 
-        [HttpPost("{username}")]
-        public async Task<ActionResult> AddLike(string username)
+        [HttpPost("{UserName}")]
+        public async Task<ActionResult> AddLike(string UserName)
         {
             var sourceUserId = User.GetUserId();
-            var likedUser = await this.userRepository.GetUserByUsernameAsync(username);
+            var likedUser = await this.userRepository.GetUserByUsernameAsync(UserName);
             var sourceUser = await this.likesRepository.GetUserWithLikes(sourceUserId);
 
             if (likedUser == null) return NotFound();
 
-            if (sourceUser.username == username)
+            if (sourceUser.UserName == UserName)
             {
                 return BadRequest("You cannot like yourself");
             }
-            var userLike = await this.likesRepository.GetUserLike(sourceUserId, likedUser.id);
+            var userLike = await this.likesRepository.GetUserLike(sourceUserId, likedUser.Id);
 
             if (userLike != null)
             {
@@ -45,7 +45,7 @@ namespace API.Controllers
             userLike = new UserLike
             {
                 SourceUserId = sourceUserId,
-                LikedUserId = likedUser.id
+                LikedUserId = likedUser.Id
             };
 
             sourceUser.LikedUsers.Add(userLike);
@@ -65,7 +65,7 @@ namespace API.Controllers
             var users = await this.likesRepository.GetUserLikes(likesParams);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
-            
+
 
             return Ok(users);
         }

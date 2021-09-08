@@ -23,20 +23,20 @@ export class MessageService {
     );
   }
 
-  getMessageThread(username: string) {
+  getMessageThread(userName: string) {
     return this.http.get<Message[]>(
-      this.baseUrl + 'messages/thread/' + username
+      this.baseUrl + 'messages/thread/' + userName
     );
   }
 
-  sendMessage(username: string, content: string) {
+  sendMessage(userName: string, content: string) {
     return this.http.post<Message>(this.baseUrl + 'messages', {
-      recipientUsername: username,
+      recipientUsername: userName,
       content,
     });
   }
 
-  deleteMessage(id: number) {
-    return this.http.delete(this.baseUrl + 'messages/' + id);
+  deleteMessage(Id: number) {
+    return this.http.delete(this.baseUrl + 'messages/' + Id);
   }
 }

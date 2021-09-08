@@ -33,10 +33,10 @@ export class MessagesComponent implements OnInit {
       });
   }
 
-  deleteMessage(id: number) {
-    this.messageService.deleteMessage(id).subscribe(() => {
+  deleteMessage(Id: number) {
+    this.messageService.deleteMessage(Id).subscribe(() => {
       this.messages.splice(
-        this.messages.findIndex((m) => m.id === id),
+        this.messages.findIndex((m) => m.Id === Id),
         1
       );
     });

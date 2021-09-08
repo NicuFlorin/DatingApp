@@ -8,7 +8,7 @@ namespace API.DTO
     {
 
         [Required]
-        public string username { get; set; }
+        public string UserName { get; set; }
         [Required]
         public string KnownAS { get; set; }
         public DateTime DateOfBirth { get; set; }

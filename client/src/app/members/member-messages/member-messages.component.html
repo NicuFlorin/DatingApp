@@ -20,14 +20,14 @@
                 <span
                   class="text-danger"
                   *ngIf="
-                    !message.dateRead && message.senderUsername !== username
+                    !message.dateRead && message.senderUsername !== userName
                   "
                   >(unread)</span
                 >
                 <span
                   class="text-success"
                   *ngIf="
-                    message.dateRead && message.senderUsername !== username
+                    message.dateRead && message.senderUsername !== userName
                   "
                   >(read {{ message.dateRead | timeago }})</span
                 >

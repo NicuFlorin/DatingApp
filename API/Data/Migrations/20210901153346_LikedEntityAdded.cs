@@ -20,13 +20,13 @@ namespace API.Data.Migrations
                         name: "FK_Likes_Users_LikedUserId",
                         column: x => x.LikedUserId,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Likes_Users_SourceUserId",
                         column: x => x.SourceUserId,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

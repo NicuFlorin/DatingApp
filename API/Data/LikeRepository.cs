@@ -25,7 +25,7 @@ namespace API.Data
 
         public async Task<PageList<LikeDto>> GetUserLikes(LikesParams likesParams)
         {
-            var users = this.context.Users.OrderBy(user => user.username).AsQueryable();
+            var users = this.context.Users.OrderBy(user => user.UserName).AsQueryable();
 
             var likes = this.context.Likes.AsQueryable();
 
@@ -42,22 +42,22 @@ namespace API.Data
             else return null;
             var likeUsers = users.Select(user => new LikeDto
             {
-                Username = user.username,
+                Username = user.UserName,
                 KnownAs = user.KnownAs,
                 Age = user.DateOfBirth.CalculateAge(),
                 PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
                 City = user.City,
-                Id = user.id
+                Id = user.Id
             });
 
-            return await PageList<LikeDto>.CreateAsync(likeUsers,likesParams.PageNumber,likesParams.PageSize);
+            return await PageList<LikeDto>.CreateAsync(likeUsers, likesParams.PageNumber, likesParams.PageSize);
         }
 
         public async Task<AppUser> GetUserWithLikes(int userId)
         {
             return await this.context.Users
                .Include(user => user.LikedUsers)
-               .FirstOrDefaultAsync(user => user.id == userId);
+               .FirstOrDefaultAsync(user => user.Id == userId);
         }
     }
 }

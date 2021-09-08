@@ -76,7 +76,7 @@ namespace API.Data.Migrations
                         name: "FK_Photos_Users_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

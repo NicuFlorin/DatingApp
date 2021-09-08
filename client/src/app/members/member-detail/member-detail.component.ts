@@ -64,11 +64,9 @@ export class MemberDetailComponent implements OnInit {
     return imageUrls;
   }
 
-  
-
   loadMessages() {
     this.messageService
-      .getMessageThread(this.member.username)
+      .getMessageThread(this.member.userName)
       .subscribe((messages) => {
         this.messages = messages;
       });

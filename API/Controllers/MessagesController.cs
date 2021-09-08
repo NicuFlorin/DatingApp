@@ -26,15 +26,15 @@ namespace API.Controllers
 
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
-            var username = User.GetUsername();
+            var UserName = User.GetUsername();
 
-            if (username == createMessageDto.RecipientUsername.ToLower())
+            if (UserName == createMessageDto.RecipientUsername.ToLower())
             {
                 return BadRequest("You cannot send messages to yourself");
 
             }
 
-            var sender = await this.userRepository.GetUserByUsernameAsync(username);
+            var sender = await this.userRepository.GetUserByUsernameAsync(UserName);
             var recipient = await this.userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
             if (recipient == null)
@@ -46,8 +46,8 @@ namespace API.Controllers
             {
                 Sender = sender,
                 Recipient = recipient,
-                SenderUsername = sender.username,
-                RecipientUsername = recipient.username,
+                SenderUsername = sender.UserName,
+                RecipientUsername = recipient.UserName,
                 Content = createMessageDto.Content
             };
 
@@ -73,28 +73,28 @@ namespace API.Controllers
             return messages;
         }
 
-        [HttpGet("thread/{username}")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string username)
+        [HttpGet("thread/{UserName}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string UserName)
         {
             var currentUsername = User.GetUsername();
 
-            return Ok(await this.messageRepository.GetMessageThread(currentUsername, username));
+            return Ok(await this.messageRepository.GetMessageThread(currentUsername, UserName));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteMessage(int id)
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteMessage(int Id)
         {
-            var username = User.GetUsername();
+            var UserName = User.GetUsername();
 
-            var message = await this.messageRepository.GetMessage(id);
+            var message = await this.messageRepository.GetMessage(Id);
 
-            if (message.Sender.username != username && message.Recipient.username != username)
+            if (message.Sender.UserName != UserName && message.Recipient.UserName != UserName)
             {
                 return Unauthorized();
             }
-            if (message.Sender.username == username) message.SenderDeleted = true;
+            if (message.Sender.UserName == UserName) message.SenderDeleted = true;
 
-            if (message.Recipient.username == username) message.RecipientDeleted = true;
+            if (message.Recipient.UserName == UserName) message.RecipientDeleted = true;
 
             if (message.SenderDeleted && message.RecipientDeleted)
             {
