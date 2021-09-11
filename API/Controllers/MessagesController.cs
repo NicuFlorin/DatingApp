@@ -14,14 +14,14 @@ namespace API.Controllers
     [Authorize]
     public class MessagesController : BaseApiController
     {
-        private readonly IUserRepository userRepository;
-        private readonly IMessageRepository messageRepository;
+        private readonly IUnitOfWork unitOfWork;
+
         private readonly IMapper mapper;
-        public MessagesController(IUserRepository userRepository, IMessageRepository messageRepository, IMapper mapper)
+        public MessagesController(IMapper mapper, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.messageRepository = messageRepository;
-            this.userRepository = userRepository;
+
         }
 
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
@@ -34,8 +34,8 @@ namespace API.Controllers
 
             }
 
-            var sender = await this.userRepository.GetUserByUsernameAsync(UserName);
-            var recipient = await this.userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+            var sender = await this.unitOfWork.UserRepository.GetUserByUsernameAsync(UserName);
+            var recipient = await this.unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
             if (recipient == null)
             {
@@ -51,9 +51,9 @@ namespace API.Controllers
                 Content = createMessageDto.Content
             };
 
-            this.messageRepository.AddMessage(message);
+            this.unitOfWork.MessageRepository.AddMessage(message);
 
-            if (await this.messageRepository.SaveAllAsync())
+            if (await this.unitOfWork.Complete())
             {
                 return Ok(this.mapper.Map<MessageDto>(message));
             }
@@ -66,27 +66,20 @@ namespace API.Controllers
         {
             messageParams.Username = User.GetUsername();
 
-            var messages = await this.messageRepository.GetMessagesForUser(messageParams);
+            var messages = await this.unitOfWork.MessageRepository.GetMessagesForUser(messageParams);
 
             Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize, messages.TotalCount, messages.TotalPages);
 
             return messages;
         }
 
-        [HttpGet("thread/{UserName}")]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string UserName)
-        {
-            var currentUsername = User.GetUsername();
-
-            return Ok(await this.messageRepository.GetMessageThread(currentUsername, UserName));
-        }
 
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteMessage(int Id)
         {
             var UserName = User.GetUsername();
 
-            var message = await this.messageRepository.GetMessage(Id);
+            var message = await this.unitOfWork.MessageRepository.GetMessage(Id);
 
             if (message.Sender.UserName != UserName && message.Recipient.UserName != UserName)
             {
@@ -98,21 +91,21 @@ namespace API.Controllers
 
             if (message.SenderDeleted && message.RecipientDeleted)
             {
-                this.messageRepository.DeleteMessage(message);
+                this.unitOfWork.MessageRepository.DeleteMessage(message);
 
             }
 
-            if (await this.messageRepository.SaveAllAsync())
+            if (await this.unitOfWork.Complete())
             {
                 return Ok();
             }
 
             return BadRequest("Problem deleting the message");
 
-        }       
+        }
 
-        
-        
+
+
 
     }
 }

@@ -10,7 +10,6 @@ namespace API.Extensions
     {
         void Update(AppUser user);
 
-        Task<bool> SaveAllAsync();
 
         Task<IEnumerable<AppUser>> GetUsersAsync();
 
@@ -21,6 +20,7 @@ namespace API.Extensions
         Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams);
 
         Task<MemberDto> GetMemberAsync(string UserName);
+        Task<string> GetUserGender(string username);
 
     }
 }
