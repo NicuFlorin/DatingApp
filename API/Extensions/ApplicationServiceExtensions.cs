@@ -2,15 +2,23 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+
 using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+
 
 namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
+       
         public static IServiceCollection AddApplicationServies(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<PresenceTracker>();
@@ -22,6 +30,8 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
+
+
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
             return services;

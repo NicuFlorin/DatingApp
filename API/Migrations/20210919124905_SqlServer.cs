@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class SqlMigration : Migration
+    public partial class SqlServer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
