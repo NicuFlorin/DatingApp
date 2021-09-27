@@ -1,5 +1,5 @@
 {
   "angular.enable-strict-mode-prompt": false,
-  "appService.defaultWebAppToDeploy": "/subscriptions/58342188-573e-4dfa-b746-5774c80e778d/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/DateMe2021",
-  "appService.deploySubpath": "API\\publish"
+  "appService.deploySubpath": "API\\publish",
+  "appService.defaultWebAppToDeploy": "/subscriptions/58342188-573e-4dfa-b746-5774c80e778d/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/DatingApp2021"
 }

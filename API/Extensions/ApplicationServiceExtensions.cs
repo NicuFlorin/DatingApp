@@ -8,17 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 
 
 namespace API.Extensions
 {
     public static class ApplicationServiceExtensions
     {
-       
+
         public static IServiceCollection AddApplicationServies(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<PresenceTracker>();
@@ -30,9 +26,19 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                string connectionString;
+                if (env == "Development")
+                {
 
 
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                    options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                }
+                else
+                {
+                    connectionString = Environment.GetEnvironmentVariable("MyDbConnection");
+                    options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                }
             });
             return services;
         }
